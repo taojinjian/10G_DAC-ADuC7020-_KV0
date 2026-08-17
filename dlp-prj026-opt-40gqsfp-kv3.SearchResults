@@ -1,0 +1,21 @@
+---- glb_update_lomem_flash Matches (20 in 4 files) ----
+Flash.c (code):Bool_PUB glb_update_lomem_flash=FALSE_PUB;
+Flash.c (code):	glb_update_lomem_flash = FALSE_PUB;
+Flash.c (code):		if((glb_update_lomem_flash == TRUE_PUB)&&(glb_i2c0_rcv_first==TRUE_PUB))
+Flash.c (code):			glb_update_lomem_flash = FALSE_PUB;
+Flash.c (code):		glb_update_lomem_flash = FALSE_PUB;
+Flash.txt (obj):;;;589    	glb_update_lomem_flash = FALSE_PUB;
+Flash.txt (obj):000330  e5c10000          STRB     r0,[r1,#0]  ; glb_update_lomem_flash
+Flash.txt (obj):;;;649    		if((glb_update_lomem_flash == TRUE_PUB)&&(glb_i2c0_rcv_first==TRUE_PUB))
+Flash.txt (obj):000464  e5d00000          LDRB     r0,[r0,#0]  ; glb_update_lomem_flash
+Flash.txt (obj):;;;662    			glb_update_lomem_flash = FALSE_PUB;
+Flash.txt (obj):;;;687    		glb_update_lomem_flash = FALSE_PUB;
+Flash.txt (obj):0004e4  e5c10000          STRB     r0,[r1,#0]            ;662  ; glb_update_lomem_flash
+Flash.txt (obj):0005a0  e5c10000          STRB     r0,[r1,#0]            ;687  ; glb_update_lomem_flash
+Flash.txt (obj):                          DCD      glb_update_lomem_flash
+Flash.txt (obj):                  glb_update_lomem_flash
+Inttrupt.c (code):extern Bool_PUB glb_update_lomem_flash;
+Inttrupt.c (code):						glb_update_lomem_flash = TRUE_PUB;
+Inttrupt.txt (obj):;;;381    						glb_update_lomem_flash = TRUE_PUB;
+Inttrupt.txt (obj):0003f0  e5c10000          STRB     r0,[r1,#0]  ; glb_update_lomem_flash
+Inttrupt.txt (obj):                          DCD      glb_update_lomem_flash

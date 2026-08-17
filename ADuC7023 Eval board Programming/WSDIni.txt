@@ -1,0 +1,14 @@
+
+Read only config for MultiWSD
+Hex file:E:\job-project\dlp-prj026-opt-100glr\fwQsfp40G_KV3-201709221520\obj\qsfp40glr.hex
+Browser path: 
+Help path: 
+AutoClear: Yes
+ColorList: Yes
+Mass Erase: Yes
+Programm: Yes
+Proteced: No
+Protection Value: 0xFFFFFFFF
+Protection Key: 0x123
+Checksum: Imported File Value
+R Command: Run from 0x0
