@@ -47,7 +47,7 @@
 /**
 **extern
 **/
-extern Bool_PUB glb_timer1_notice_updata ;
+extern volatile Bool_PUB glb_timer1_notice_updata ;
 
 
 /**
@@ -95,6 +95,13 @@ int main(void)
 		
 		/*check if need to update the flash*/
 		flash_update_qsfp_table();
+
+		/*SFF-8472 temperature: ADuC7020 internal temp -> A2[96]/[97]*/
+		if(glb_timer1_notice_updata==TRUE_PUB)
+		{
+			glb_timer1_notice_updata = FALSE_PUB;
+			misc_monitor_chip_temperatur();
+		}
 
 		/*monitor & diag*/
 //		if(glb_timer1_notice_updata==TRUE_PUB)

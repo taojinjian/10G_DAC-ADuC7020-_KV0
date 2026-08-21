@@ -44,13 +44,13 @@
  uInt8_PUB glb_i2c0_rcv_first=FALSE_PUB;
 uInt8_PUB i2c_receive, dac_update;
 uInt32_PUB glb_sys_tick=0;
-static uInt8_PUB rx_count = 0; // i2c ½Ó¿Ú½ÓÊÕÊý¾Ý¼ÆÊýÆ÷
-static uInt8_PUB i2cwrite_Byte = 0; // I2C ½Ó¿ÚÐ´Êý¾Ý»º´æ
-static uInt8_PUB register_addr = 0; // I2C ½Ó¿Ú¶ÁÐ´Êý¾ÝµÄ ¼Ä´æÆ÷µØÖ·,0ºÍ1Êý¾ÝÉÏµç³õÊ¼»¯ÒÑ¾­»º´æ
-//static uInt8_PUB i2cA0read_Byte[2] = {0}; //i2c ½Ó¿Ú¶ÁÊý¾Ý»º´æ
+static uInt8_PUB rx_count = 0; // i2c ï¿½Ó¿Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½ï¿½ï¿½
+static uInt8_PUB i2cwrite_Byte = 0; // I2C ï¿½Ó¿ï¿½Ð´ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
+static uInt8_PUB register_addr = 0; // I2C ï¿½Ó¿Ú¶ï¿½Ð´ï¿½ï¿½ï¿½Ýµï¿½ ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·,0ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½
+//static uInt8_PUB i2cA0read_Byte[2] = {0}; //i2c ï¿½Ó¿Ú¶ï¿½ï¿½ï¿½ï¿½Ý»ï¿½ï¿½ï¿½
 static uint8_t InvalidData = 0xFF;
 
-static uint8_t I2C_Addr = 0;   //I2CÑ°Ö·µØÖ·
+static uint8_t I2C_Addr = 0;   //I2CÑ°Ö·ï¿½ï¿½Ö·
 /**
 **extern
 **/
@@ -80,7 +80,7 @@ const uInt8_PUB glb_erase[]={'e','r','a','s'};
 uInt8_PUB glb_erase_rcv[4]={0,0,0,0};
 uInt8_PUB glb_erase_rcv_page00[4]={0,0,0,0};
 volatile uInt8_PUB i2c0_rcv_data = 0;
-Bool_PUB glb_timer1_notice_updata = FALSE_PUB;
+volatile Bool_PUB glb_timer1_notice_updata = FALSE_PUB;
 
 static uInt8_PUB pRdData = 0;
 /**
@@ -426,7 +426,7 @@ void I2CWriteByte(void)
 }
 
 /*****************************************************************
-**Name	  :   FIQ_Handler()ÊÇ
+**Name	  :   FIQ_Handler()ï¿½ï¿½
 **
 **Function:
 **1

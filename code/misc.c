@@ -304,6 +304,38 @@ Bool_PUB misc_adc(uInt8_PUB adc_ch,uInt16_PUB *adc_value)
 	return TRUE_PUB;
 }
 /*****************************************************************
+**Name	  :   misc_monitor_chip_temperatur()
+**
+**Function:  read ADuC7020 internal temperature sensor, write to A2[96]/[97]
+**
+**Params :
+**
+**Return  :
+**
+**Input    :
+**
+**Output :
+*****************************************************************/
+void misc_monitor_chip_temperatur(void)
+{
+	uInt16_PUB raw = 0;
+	Int16_PUB  val = 0;
+	float t = 0;
+
+	if (misc_adc(0x10, &raw) != TRUE_PUB)   /* 0x10 = internal temperature sensor */
+		return;
+
+	/* ADuC7020 datasheet: T[°C] = (0x525 - raw) / 1.3, raw = 12-bit ADC result.
+	   Negative temperature coefficient (~-1.3mV/°C), 0x525 = 1317 = 0°C reference. */
+	t = (float)(0x525 - (Int32_PUB)raw) / 1.3f;
+
+	/* SFF-8472: signed 16-bit two's complement, LSB = 1/256 °C */
+	val = (Int16_PUB)(t * 256.0f);
+
+	glb_sram_qsfp_A2_lo_memory[96] = (uInt8_PUB)(((uInt16_PUB)val >> 8) & 0x00FF); /* MSB */
+	glb_sram_qsfp_A2_lo_memory[97] = (uInt8_PUB)((uInt16_PUB)val & 0x00FF);        /* LSB */
+}
+/*****************************************************************
 **Name	  :   misc_monitor_temperatur()
 **
 **Function:

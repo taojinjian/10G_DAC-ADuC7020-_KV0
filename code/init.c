@@ -202,18 +202,18 @@ void init_i2c_for_operate_gn1160(void)
 *****************************************************************/
 void init_adc_for_rx_monitoer(void)
 {
-//    /*
-//        RX_MON1     ADC0        For Input to mcu
-//        RX_MON2     ADC1        For Input to mcu
-//        RX_MON3     ADC2        For Input to mcu
-//        RX_MON4     ADC3        For Input to mcu
-//        */
-//        
-//	/*Bandgap Reference configuration*/
-//	REFCON = 0x01;                      // use internal 2.5V reference
-//    
-//	/*ADC configuration*/
-//	ADCCON = 0x20;                      // powerup ADC
+    /*
+        RX_MON1     ADC0        For Input to mcu
+        RX_MON2     ADC1        For Input to mcu
+        RX_MON3     ADC2        For Input to mcu
+        RX_MON4     ADC3        For Input to mcu
+        */
+
+	/*Bandgap Reference configuration*/
+	REFCON = 0x01;                      // use internal 2.5V reference
+
+	/*ADC configuration*/
+	ADCCON = 0x20;                      // powerup ADC
 }
 /*****************************************************************
 **Name    :   init_qsfp_interface_io_for_control_and_status()
@@ -299,7 +299,7 @@ void init_enable_interrupt(void)
 Bit
 Description
 0
-All interrupts OR¡¯ed (FIQ only).
+All interrupts ORï¿½ï¿½ed (FIQ only).
 1
 SWI.
 2
@@ -345,7 +345,7 @@ PWM.
 */
    
     //IRQEN = 0x00048008;     // enable Timer1IRQ, XIRQ0, XIRQ1
-    //IRQEN = 0x00000008;     // enable Timer1IRQ
+    IRQEN = 0x00000008;     // enable Timer1IRQ
 
 //	IRQEN |=(1UL << XIRQ1_INT);// enable XIRQ1
 }
@@ -390,9 +390,9 @@ void init_module()
 	init_cpu_clock();
 	init_i2c_slave_to_host();
 //	init_i2c_for_operate_gn1160();
-//	init_adc_for_rx_monitoer();
+	init_adc_for_rx_monitoer();
 	init_qsfp_interface_io_for_control_and_status();
-//	init_timer();
+	init_timer();
 //	init_reset_gn1160();
 
 	/*init qsfp28 table*/
