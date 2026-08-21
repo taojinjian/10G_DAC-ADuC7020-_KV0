@@ -293,9 +293,9 @@ void I2CWriteByte(void)
 //			if((register_addr<=PUBCOM_TABLE_LOMEM_PAGE_MAX_ADDR))
 //				{
 						if(glb_passward_enable==TRUE_PUB)
-							glb_sram_qsfp_A0_memory[register_addr] = I2C0SRX;               /*get byte data*/
+							glb_sram_qsfp_A0_memory[register_addr] = i2cwrite_Byte;               /*get byte data*/
 						else
-							i2c0_rcv_data = I2C0SRX;/*empty read for flash specail status*/
+							i2c0_rcv_data = i2cwrite_Byte;/*empty read for flash specail status*/
 
 						/*updata*/
 						if(glb_passward_enable==TRUE_PUB)
@@ -308,13 +308,13 @@ void I2CWriteByte(void)
 					if((register_addr<PUBCOM_TABLE_LOMEM_PAGE_RW_START))
 					{
 						if(glb_passward_enable==TRUE_PUB)
-							glb_sram_qsfp_A2_lo_memory[register_addr] = I2C0SRX;               /*get byte data*/
+							glb_sram_qsfp_A2_lo_memory[register_addr] = i2cwrite_Byte;               /*get byte data*/
 						else
-							i2c0_rcv_data = I2C0SRX;/*empty read for flash specail status*/
+							i2c0_rcv_data = i2cwrite_Byte;/*empty read for flash specail status*/
 					}
 					else
 					{
-						glb_sram_qsfp_A2_lo_memory[register_addr] = I2C0SRX;               /*get byte data*/
+						glb_sram_qsfp_A2_lo_memory[register_addr] = i2cwrite_Byte;               /*get byte data*/
 					}
 
 					/*updata*/
@@ -335,15 +335,15 @@ void I2CWriteByte(void)
 					if(upmem_page==PUBCOM_UPPAGE_00)
 					{
 						if((register_addr == 255))
-							i2c0_rcv_data = I2C0SRX;/*empty read for flash specail status 0X99*/
+							i2c0_rcv_data = i2cwrite_Byte;/*empty read for flash specail status 0X99*/
 						else
 						{
 							if(register_addr<PUBCOM_UPMEM_PAGE00_OFFSET_ERASE_START)
 							{
 								if(glb_passward_enable==TRUE_PUB)
-									glb_sram_qsfp_A2_memory[upmem_page][register_addr-PUBCOM_TABLE_PAGE_SIZE]=I2C0SRX;
+									glb_sram_qsfp_A2_memory[upmem_page][register_addr-PUBCOM_TABLE_PAGE_SIZE]=i2cwrite_Byte;
 								else
-									i2c0_rcv_data = I2C0SRX;/*empty read for flash specail status*/
+									i2c0_rcv_data = i2cwrite_Byte;/*empty read for flash specail status*/
 
 								if(glb_passward_enable==TRUE_PUB)
 									glb_update_himem_flash[upmem_page] = TRUE_PUB;
@@ -351,9 +351,9 @@ void I2CWriteByte(void)
 							else
 							{
 								if((register_addr>=PUBCOM_UPMEM_PAGE00_OFFSET_ERASE_START)&&(register_addr<=PUBCOM_UPMEM_PAGE00_OFFSET_ERASE_END))
-									glb_erase_rcv_page00[register_addr-PUBCOM_UPMEM_PAGE00_OFFSET_ERASE_START]=I2C0SRX;
+									glb_erase_rcv_page00[register_addr-PUBCOM_UPMEM_PAGE00_OFFSET_ERASE_START]=i2cwrite_Byte;
 								else
-									i2c0_rcv_data = I2C0SRX;/*empty read for flash specail status*/
+									i2c0_rcv_data = i2cwrite_Byte;/*empty read for flash specail status*/
 							}
 						}
 
@@ -366,20 +366,20 @@ void I2CWriteByte(void)
 					}
 					else if((upmem_page==PUBCOM_UPPAGE_01)||(upmem_page==PUBCOM_UPPAGE_02))
 					{
-						i2c0_rcv_data = I2C0SRX;/*empty read*/
+						i2c0_rcv_data = i2cwrite_Byte;/*empty read*/
 					}
 					else if(upmem_page==PUBCOM_UPPAGE_03)
 					{
 						if(register_addr<PUBCOM_TABLE_UPMEM_PAGE03_RW_START)
 						{
 							if(glb_passward_enable==TRUE_PUB)
-								glb_sram_qsfp_A2_memory[upmem_page][register_addr-PUBCOM_TABLE_PAGE_SIZE]=I2C0SRX;
+								glb_sram_qsfp_A2_memory[upmem_page][register_addr-PUBCOM_TABLE_PAGE_SIZE]=i2cwrite_Byte;
 							else
-								i2c0_rcv_data = I2C0SRX;/*empty read for flash specail status*/
+								i2c0_rcv_data = i2cwrite_Byte;/*empty read for flash specail status*/
 						}
 						else
 						{
-							glb_sram_qsfp_A2_memory[upmem_page][register_addr-PUBCOM_TABLE_PAGE_SIZE]=I2C0SRX;
+							glb_sram_qsfp_A2_memory[upmem_page][register_addr-PUBCOM_TABLE_PAGE_SIZE]=i2cwrite_Byte;
 						}
 
 						if(glb_passward_enable==TRUE_PUB)
@@ -416,10 +416,10 @@ void I2CWriteByte(void)
 	//				}
 					else
 					{
-						i2c0_rcv_data = I2C0SRX;/*empty read*/
+						i2c0_rcv_data = i2cwrite_Byte;/*empty read*/
 					}
 		break;
-					
+
 		default:break;
 				}
 		}
@@ -724,14 +724,9 @@ void IRQ_Handler(void) __irq
 //			IRQCONE |= 0x0C;        // XIRQ1 low edge triggered
 //	}
 
-	if(misc_get_modsel_status()==TRUE_PUB)
-	{
-		if(I2C0ID0!=PUBCOM_DEVICE_ADDR0)
-			I2C0ID0 = PUBCOM_DEVICE_ADDR0;
-	}
-	else
-	{
-		if(I2C0ID0==PUBCOM_DEVICE_ADDR0)
-			I2C0ID0 = PUBCOM_DEVICE_ADDR_INVALID;
-	}
+	/* ModSel gating removed: misc_get_modsel_status() reads GP1DAT bit1 = P1.1,
+	   which GP1CON configures as I2C SDA (see init_i2c_slave_to_host()), not ModSel.
+	   With SDA idle-high this ran every ~50ms and set I2C0ID0 = 0xAC, so the slave
+	   stopped acknowledging address 0xA0 while 0xA2 (I2C0ID1) kept working.
+	   I2C0ID0 is now left at the value set in init_i2c_slave_to_host(). */
 }

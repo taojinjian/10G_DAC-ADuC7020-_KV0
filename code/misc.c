@@ -86,6 +86,9 @@ extern Bool_PUB glb_update_reg_enable;
 **
 **Output :
 *****************************************************************/
+/* WARNING: P1.0 is configured as I2C SCL by GP1CON in init_i2c_slave_to_host().
+   GP1DAT bit0 therefore returns the SCL bus level, NOT the LPMode input.
+   Do not use this result until LPMode is wired to a free GPIO and configured. */
 Bool_PUB misc_get_lpmode_status(void)
 {
 	return (GP1DAT &(0x01)) == 0 ? TRUE_PUB : FALSE_PUB;
@@ -103,6 +106,11 @@ Bool_PUB misc_get_lpmode_status(void)
 **
 **Output :
 *****************************************************************/
+/* WARNING: P1.1 is configured as I2C SDA by GP1CON in init_i2c_slave_to_host().
+   GP1DAT bit1 therefore returns the SDA bus level, NOT the ModSel input.
+   This used to gate I2C0ID0 in IRQ_Handler() and permanently disabled address
+   0xA0; that call site has been removed. Do not use this result until ModSel is
+   wired to a free GPIO and configured. */
 Bool_PUB misc_get_modsel_status(void)
 {
 	return (GP1DAT &(0x02)) == 0 ? TRUE_PUB : FALSE_PUB;
