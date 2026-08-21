@@ -336,6 +336,37 @@ void misc_monitor_chip_temperatur(void)
 	glb_sram_qsfp_A2_lo_memory[97] = (uInt8_PUB)((uInt16_PUB)val & 0x00FF);        /* LSB */
 }
 /*****************************************************************
+**Name	  :   misc_monitor_chip_voltage()
+**
+**Function:  read ADuC7020 AVDD/2 channel, write to A2[98]/[99]
+**
+**Params :
+**
+**Return  :
+**
+**Input    :
+**
+**Output :
+*****************************************************************/
+void misc_monitor_chip_voltage(void)
+{
+	uInt16_PUB raw = 0;
+	uInt16_PUB val = 0;
+	float v = 0;
+
+	if (misc_adc(0x13, &raw) != TRUE_PUB)   /* 0x13 = AVDD/2 self-diagnostic channel */
+		return;
+
+	/* VREF = 2.5V internal, 12-bit. AVDD = 2 * (raw * 2.5/4096).
+	   SFF-8472 Vcc: 16-bit unsigned, LSB = 0.1 mV (100 uV). */
+	v   = raw * 2.5f / 4096.0f;       /* AVDD/2, volts */
+	v   = v * 2.0f;                   /* AVDD, volts */
+	val = (uInt16_PUB)(v * 10000.0f); /* volts -> 0.1 mV LSB */
+
+	glb_sram_qsfp_A2_lo_memory[98] = (uInt8_PUB)((val >> 8) & 0x00FF); /* MSB */
+	glb_sram_qsfp_A2_lo_memory[99] = (uInt8_PUB)(val & 0x00FF);        /* LSB */
+}
+/*****************************************************************
 **Name	  :   misc_monitor_temperatur()
 **
 **Function:

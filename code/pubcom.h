@@ -129,6 +129,7 @@ void init_gn1160_with_flash(void);
 /**********************misc.c function*********************************/
 void misc_monitor(void);
 void misc_monitor_chip_temperatur(void);
+void misc_monitor_chip_voltage(void);
 void misc_diag(void);
 void misc_disable_channel(void);
 Bool_PUB misc_get_lpmode_status(void);

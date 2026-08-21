@@ -101,6 +101,7 @@ int main(void)
 		{
 			glb_timer1_notice_updata = FALSE_PUB;
 			misc_monitor_chip_temperatur();
+			misc_monitor_chip_voltage();
 		}
 
 		/*monitor & diag*/
