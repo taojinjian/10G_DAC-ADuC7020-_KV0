@@ -10,7 +10,7 @@
       <TargetName>fwQsfp40G_KV3</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pArmCC>5060960::V5.06 update 7 (build 960)::..\ARM_Compiler_5.06u7</pArmCC>
+      <pArmCC>5060960::V5.06 update 7 (build 960)::.\ARM_Compiler_5.06u7</pArmCC>
       <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARM_Compiler_5.06u7</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
@@ -174,11 +174,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4101</DriverSelection>
+            <DriverSelection>4098</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>Segger\JLTAgdi.dll</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -488,6 +488,11 @@
               <FileName>pubtype.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\code\pubtype.h</FilePath>
+            </File>
+            <File>
+              <FileName>ADuC7020.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ADuC7020.h</FilePath>
             </File>
           </Files>
         </Group>

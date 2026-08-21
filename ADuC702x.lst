@@ -632,10 +632,8 @@ e)
               00000000 
               00000400 
               00000000 
-Command Line: --debug --xref --diag_suppress=9931 --depend=.\obj\aduc702x.d -o.
-\obj\aduc702x.o -IC:\Users\zyj73\AppData\Local\Keil_v5\ARM\RV31\INC -IC:\Users\
-zyj73\AppData\Local\Keil_v5\ARM\INC\ADI --predefine="__UVISION_VERSION SETA 542
-" --list=.\aduc702x.lst ADuC702x.s
+Command Line: --debug --xref --depend=.\obj\ADuC702x.d -o.\obj\ADuC702x.o -I"C:
+\keil v4\ARM\INC" -I"C:\keil v4\ARM\INC\ADI" --list=ADuC702x.lst ADuC702x.s
 
 
 
@@ -1277,4 +1275,4 @@ External symbols
       None
 Comment: __use_two_region_memory unused
 8 symbols
-404 symbols in table
+397 symbols in table
